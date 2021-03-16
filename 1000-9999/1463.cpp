@@ -1,26 +1,23 @@
 #include<iostream>
 #include<algorithm>
-#include<vector>
 using namespace std;
-int N;
+int cnt=0;
 int dp[1000001]={0};
+int main(){
+	int n;
+	cin>>n;
+	dp[1]=0;
+	dp[2]=1;
+	dp[3]=1;
+	for(int i=4;i<=n;i++){
+		dp[i]=dp[i-1]+1;
+		if(i%3==0){
+			dp[i]=min(dp[i/3]+1, dp[i]);
+		}
+		if(i%2==0){
 
-int cnt(){
-	for(int i=2;i<=N;i++){
-		if(!(i%3)){
-			dp[i]=min(dp[i/3],dp[i-1])+1;
-		}
-		else if(!(i%2)){
-			dp[i]=min(dp[i/2], dp[i-1])+1;
-		}
-		else{
-			dp[i]=dp[i-1]+1;
+			dp[i]=min(dp[i/2]+1, dp[i]);
 		}
 	}
-	return dp[N];	
-}
-int main(){
-	cin>>N;
-	cout<<cnt();
-	return 0;
+	cout<<dp[n];
 }
